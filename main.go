@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"crypto/sha256"
+	"fmt"
 	"strconv"
 	"time"
 )
@@ -53,6 +54,20 @@ func NewGenesisBlock() *Block {
 
 func NewBlockchain() *Blockchain {
 	return &Blockchain{
-		[]*Block{NewGenesisBlock()}
+		[]*Block{NewGenesisBlock()},
+	}
+}
+
+func main() {
+	bc := NewBlockchain()
+
+	bc.AddBlock("Send to M")
+	bc.AddBlock("Send to X")
+
+	for _, block := range bc.blocks {
+		fmt.Printf("Prev. hash: %x\n", block.PrevBlockHash)
+		fmt.Printf("Data: %s\n", block.Data)
+		fmt.Printf("Hash: %x\n", block.Hash)
+		fmt.Println()
 	}
 }
